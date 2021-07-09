@@ -23,7 +23,13 @@ const thoughtController = {
                 res.json(dbThoughtData)
             })
             .catch(err => res.json(err))
-    }
+    },
+
+    getThoughtById({ params }, res) {
+        Thought.findOne({ _id: params.thoughtId })
+            .then(dbUserData => res.json(dbUserData))
+            .catch(err => res.json(err));
+    },
 }
 
 module.exports = thoughtController;
