@@ -36,7 +36,16 @@ const userController = {
         )
             .then(dbUserData => res.json(dbUserData))
             .catch(err => res.json(err))
+    },
+
+    deleteUser({ params }, res) {
+        User.findOneAndDelete(
+            { _id: params.userId }
+        )
+            .then(dbUserData => res.json(dbUserData))
+            .catch(err => res.json(err))
     }
+
 }
 
 module.exports = userController;
