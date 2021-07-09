@@ -8,10 +8,8 @@ const thoughtController = {
     },
 
     createThought({ body }, res) {
-        console.log(body)
         Thought.create(body)
-            .then(({ _id, userId }) => {
-                console.log(_id, userId)
+            .then(({ _id }) => {
                 return User.findOneAndUpdate(
                     { _id: body.userId },
                     { $push: { thoughts: _id } },
@@ -19,7 +17,6 @@ const thoughtController = {
                 );
             })
             .then(dbThoughtData => {
-                console.log(dbThoughtData)
                 res.json(dbThoughtData)
             })
             .catch(err => res.json(err))
@@ -37,6 +34,14 @@ const thoughtController = {
             body,
             { new: true }
         )
+            .then(({ _id }) => {
+                console.log(_id, userId)
+                return User.findOneAndUpdate(
+                    { _id: body.userId },
+                    { $push: { thoughts: _id } },
+                    { new: true }
+                );
+            })
             .then(dbThoughtData => res.json(dbThoughtData))
             .catch(err => res.json(err))
     },
@@ -48,6 +53,27 @@ const thoughtController = {
             .then(dbThoughtData => res.json(dbThoughtData))
             .catch(err => res.json(err))
     },
+
+    addReaction({ params, body }, res) {
+        Thought.findOneAndUpdate(
+            { _id: params.thoughtId },
+            { $push: { reactions: body } },
+            { new: true }
+        )
+            .then(dbThoughtData => res.json(dbThoughtData))
+            .catch(err => res.json(err))
+    },
+
+    removeReaction({ params }, res) {
+        Thought.findOneAndUpdate(
+            { _id: params.thoughtId },
+            { $pull: { reactions: { reactionId: params.reactionId } } },
+            { new: true }
+        )
+            .then(dbThoughtData => res.json(dbThoughtData))
+            .catch(err => res.json(err))
+    }
+
 }
 
 module.exports = thoughtController;
