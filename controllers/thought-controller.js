@@ -27,8 +27,26 @@ const thoughtController = {
 
     getThoughtById({ params }, res) {
         Thought.findOne({ _id: params.thoughtId })
-            .then(dbUserData => res.json(dbUserData))
+            .then(dbThoughtData => res.json(dbThoughtData))
             .catch(err => res.json(err));
+    },
+
+    updateThought({ params, body }, res) {
+        Thought.findOneAndUpdate(
+            { _id: params.thoughtId },
+            body,
+            { new: true }
+        )
+            .then(dbThoughtData => res.json(dbThoughtData))
+            .catch(err => res.json(err))
+    },
+
+    deleteThought({ params }, res) {
+        Thought.findOneAndDelete(
+            { _id: params.thoughtId }
+        )
+            .then(dbThoughtData => res.json(dbThoughtData))
+            .catch(err => res.json(err))
     },
 }
 
