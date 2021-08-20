@@ -3,7 +3,7 @@
 <img width="978" alt="Screen Shot 2021-08-20 at 9 19 03 AM" src="https://user-images.githubusercontent.com/79291655/130255556-e5ca0228-e038-46c1-8667-ee5266bddedc.png">
 
 ## Link to Walkthrough
-[YouTube Link[(https://youtu.be/gQOQCYmX2pQ)
+[YouTube Link](https://youtu.be/gQOQCYmX2pQ)
 
 
 ## Table of Contents
